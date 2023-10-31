@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.entity.converter.BirthdayConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,7 @@ public class User {
     private String username;
     private String firstname;
     private String lastname;
-    private LocalDate birthDate;
-    private Integer age;
+    private Birthday birthDate;
     @Enumerated(EnumType.STRING)
     private Role role;
 }
