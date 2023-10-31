@@ -24,21 +24,26 @@ public class HibernateRunner {
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-//            User user = User.builder()
-//                    .username("ivan10@gmail.com")
-//                    .info("""
-//                            {
-//                                "name": "Ivan Ivanov",
-//                                "age": 21
-//                            }
-//                            """)
-//                    .firstname("Ivan")
-//                    .lastname("Ivanov")
-//                    .birthDate(new Birthday(LocalDate.of(2000, 10, 25)))
-//                    .role(Role.ADMIN)
-//                    .build();
+            User user = User.builder()
+                    .username("ivan5@gmail.com")
+                    .info("""
+                            {
+                                "name": "Ivan Ivanov",
+                                "age": 21
+                            }
+                            """)
+                    .firstname("Ivan")
+                    .lastname("Ivanov")
+                    .birthDate(new Birthday(LocalDate.of(2000, 10, 25)))
+                    .role(Role.ADMIN)
+                    .build();
 
-            User user = session.get(User.class, "ivan@gmail.com");
+            session.merge(user);
+            User user1 = session.get(User.class, "ivan1@gmail.com");
+            user1.setLastname("Ivanov");
+            System.out.println(session.isDirty());
+            session.flush();
+            System.out.println(session.isDirty());
 
             session.getTransaction().commit();
         }
