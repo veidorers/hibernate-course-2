@@ -5,6 +5,7 @@ import com.example.entity.Birthday;
 import com.example.entity.Role;
 import com.example.entity.User;
 import com.example.entity.converter.BirthdayConverter;
+import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy;
@@ -24,7 +25,13 @@ public class HibernateRunner {
             session.beginTransaction();
 
             User user = User.builder()
-                    .username("ivan4@gmail.com")
+                    .username("ivan1@gmail.com")
+                    .info("""
+                            {
+                                "name": "Ivan Ivanov",
+                                "age": 21
+                            }
+                            """)
                     .firstname("Ivan")
                     .lastname("Ivanov")
                     .birthDate(new Birthday(LocalDate.of(2000, 10, 25)))

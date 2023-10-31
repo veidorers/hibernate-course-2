@@ -1,13 +1,12 @@
 package com.example.entity;
 
-import com.example.entity.converter.BirthdayConverter;
+import io.hypersistence.utils.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import org.hibernate.annotations.Type;
 
 @Data
 @NoArgsConstructor
@@ -24,4 +23,6 @@ public class User {
     private Birthday birthDate;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Type(JsonBinaryType.class)
+    private String info;
 }
