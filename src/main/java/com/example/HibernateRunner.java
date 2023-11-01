@@ -32,6 +32,7 @@ public class HibernateRunner {
                 session1.beginTransaction();
 
                 User user2 = session1.get(User.class, 1L);
+                Integer id = user2.getCompany().getId();
 
                 session1.getTransaction().commit();
             }
