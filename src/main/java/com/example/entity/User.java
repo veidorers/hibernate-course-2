@@ -17,8 +17,10 @@ import org.hibernate.annotations.Type;
 @Table(name = "users")
 @Slf4j
 public class User {
-    @EmbeddedId
-    @AttributeOverride(name = "birthDate", column = @Column(name = "birth_date"))
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private PersonalInfo personalInfo;
 
     @Column(unique = true)
@@ -28,4 +30,8 @@ public class User {
     private Role role;
     @Type(JsonBinaryType.class)
     private String info;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
 }
