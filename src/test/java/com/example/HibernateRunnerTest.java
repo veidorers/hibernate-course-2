@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.entity.Birthday;
+import com.example.entity.PersonalInfo;
 import com.example.entity.Role;
 import com.example.entity.User;
 import jakarta.persistence.Column;
@@ -43,11 +44,12 @@ class HibernateRunnerTest {
     @Test
     void checkReflectionApi() throws SQLException {
         User user = User.builder()
-                .username("ivan2@gmail.com")
-                .firstname("Ivan")
-                .lastname("Ivanov")
-                .birthDate(new Birthday(LocalDate.of(2000, 10, 25)))
-                .role(Role.ADMIN)
+                .username("ivan17@gmail.com")
+                .personalInfo(PersonalInfo.builder()
+                        .firstname("Ivan")
+                        .lastname("Ivanov")
+                        .birthDate(new Birthday(LocalDate.of(2005, 10, 22)))
+                        .build())
                 .build();
 
         String sql = """

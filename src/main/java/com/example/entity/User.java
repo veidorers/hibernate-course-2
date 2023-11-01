@@ -11,6 +11,7 @@ import org.hibernate.annotations.Type;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "users")
@@ -19,21 +20,12 @@ public class User {
 
     @Id
     private String username;
-    private String firstname;
-    private String lastname;
-    private Birthday birthDate;
+
+    @AttributeOverride(name = "birthDate", column = @Column(name = "birth_date"))
+    private PersonalInfo personalInfo;
+
     @Enumerated(EnumType.STRING)
     private Role role;
     @Type(JsonBinaryType.class)
     private String info;
-
-    public User(String username, String firstname, String lastname, Birthday birthDate, Role role, String info) {
-        this.username = username;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.birthDate = birthDate;
-        this.role = role;
-        this.info = info;
-        log.info("user is created, {}", this);
-    }
 }
