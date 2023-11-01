@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class HibernateRunner {
     public static void main(String[] args) {
         User user = User.builder()
-                .username("ivan2@gmail.com")
+                .username("ivan@gmail.com")
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Ivan")
                         .lastname("Ivanov")
