@@ -6,14 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Type;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "users")
+@Slf4j
 public class User {
 
     @Id
@@ -25,4 +26,14 @@ public class User {
     private Role role;
     @Type(JsonBinaryType.class)
     private String info;
+
+    public User(String username, String firstname, String lastname, Birthday birthDate, Role role, String info) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.birthDate = birthDate;
+        this.role = role;
+        this.info = info;
+        log.info("user is created, {}", this);
+    }
 }

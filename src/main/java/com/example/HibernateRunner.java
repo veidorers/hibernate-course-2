@@ -15,7 +15,7 @@ public class HibernateRunner {
 
     public static void main(String[] args) {
         User user = User.builder()
-                .username("ivan910@gmail.com")
+                .username("ivan17@gmail.com")
                 .firstname("Ivan")
                 .lastname("Ivanov")
                 .build();
