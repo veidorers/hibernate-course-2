@@ -17,17 +17,12 @@ import org.hibernate.annotations.Type;
 @Table(name = "users")
 @Slf4j
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_gen")
-    @TableGenerator(name = "user_gen", table = "all_sequence",
-            pkColumnName = "table_name", valueColumnName = "pk_value", initialValue = 0, allocationSize = 1)
-    private Long id;
+    @EmbeddedId
+    @AttributeOverride(name = "birthDate", column = @Column(name = "birth_date"))
+    private PersonalInfo personalInfo;
 
     @Column(unique = true)
     private String username;
-
-    @AttributeOverride(name = "birthDate", column = @Column(name = "birth_date"))
-    private PersonalInfo personalInfo;
 
     @Enumerated(EnumType.STRING)
     private Role role;
