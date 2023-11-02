@@ -26,20 +26,16 @@ import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void checkLazyInitialization() {
-        Company company = null;
-
+    void checkOrphanRemoval() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            company = session.getReference(Company.class, 1);
+            Company company = session.get(Company.class, 1);
+            company.getUsers().removeIf(user -> user.getId().equals(7L));
 
             session.getTransaction().commit();
         }
-
-        var users = company.getUsers();
-        System.out.println(users.size());
     }
 
 
