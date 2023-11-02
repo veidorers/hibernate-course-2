@@ -31,18 +31,23 @@ class HibernateRunnerTest {
 
         session.beginTransaction();
 
-//        User user = User.builder()
-//                .username("ivan4@gmail.com")
-//                .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.of(2008, 11, 2))))
-//                .role(Role.USER)
-//                .build();
-//
-//        Company company = Company.builder()
-//                .name("Apple")
-//                .build();
+        User user1 = User.builder()
+                .username("ivan@gmail.com")
+                .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.of(2008, 11, 2))))
+                .role(Role.USER)
+                .build();
+        User user2 = User.builder()
+                .username("ivan2@gmail.com")
+                .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.of(2008, 11, 2))))
+                .role(Role.USER)
+                .build();
 
-        Company company = session.get(Company.class, 4);
-        session.remove(company);
+
+        Company company = session.get(Company.class, 1);
+        company.addUser(user1);
+        company.addUser(user2);
+
+        session.persist(company);
 
         session.getTransaction().commit();
     }
