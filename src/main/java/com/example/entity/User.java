@@ -29,7 +29,7 @@ public class User {
     @Type(JsonBinaryType.class)
     private String info;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "company_id")
     private Company company;
 }
