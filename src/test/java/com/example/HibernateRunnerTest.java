@@ -31,10 +31,22 @@ class HibernateRunnerTest {
 
         session.beginTransaction();
 
-        Company company = session.get(Company.class, 1);
+//        User user = User.builder()
+//                .username("ivan4@gmail.com")
+//                .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.of(2008, 11, 2))))
+//                .role(Role.USER)
+//                .build();
+//
+//        Company company = Company.builder()
+//                .name("Apple")
+//                .build();
+
+        Company company = session.get(Company.class, 4);
+        session.remove(company);
 
         session.getTransaction().commit();
     }
+
 
     @Test
     void checkGetReflectionApi() throws SQLException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
