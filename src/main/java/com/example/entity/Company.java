@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@ToString(exclude = "users")
+@ToString(of = "id")
 @EqualsAndHashCode(of = "name")
 @AllArgsConstructor
 @NoArgsConstructor

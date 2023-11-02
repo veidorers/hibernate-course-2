@@ -19,37 +19,27 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Set;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void oneToMany() {
-        @Cleanup SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
-        @Cleanup Session session = sessionFactory.openSession();
+    void checkLazyInitialization() {
+        Company company = null;
 
-        session.beginTransaction();
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
 
-        User user1 = User.builder()
-                .username("ivan@gmail.com")
-                .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.of(2008, 11, 2))))
-                .role(Role.USER)
-                .build();
-        User user2 = User.builder()
-                .username("ivan2@gmail.com")
-                .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.of(2008, 11, 2))))
-                .role(Role.USER)
-                .build();
+            company = session.getReference(Company.class, 1);
 
+            session.getTransaction().commit();
+        }
 
-        Company company = session.get(Company.class, 1);
-        company.addUser(user1);
-        company.addUser(user2);
-
-        session.persist(company);
-
-        session.getTransaction().commit();
+        var users = company.getUsers();
+        System.out.println(users.size());
     }
 
 
