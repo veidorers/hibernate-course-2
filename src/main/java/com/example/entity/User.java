@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 
 @Data
 @EqualsAndHashCode(of = "username")
+@ToString(exclude = "profile")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -32,4 +33,7 @@ public class User {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
 }
