@@ -9,7 +9,6 @@ import org.hibernate.annotations.Type;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "company")
 @Builder
 @Entity
 @Table(name = "users")
