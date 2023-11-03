@@ -3,9 +3,8 @@ package com.example.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @ToString(of = "id")
@@ -23,7 +22,7 @@ public class Company {
 
     @Builder.Default
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<User> users = new HashSet<>();
+    private List<User> users = new ArrayList<>();
 
     public void addUser(User user) {
         users.add(user);

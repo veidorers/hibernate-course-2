@@ -4,7 +4,6 @@ import com.example.entity.*;
 import com.example.util.HibernateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
-import lombok.Cleanup;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
@@ -19,8 +18,6 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
@@ -32,8 +29,8 @@ class HibernateRunnerTest {
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            User user = session.get(User.class, 4L);
-            Chat chat = session.get(Chat.class, 2L);
+            User user = session.get(User.class, 1L);
+            Chat chat = session.get(Chat.class, 1L);
 
             UserChat userChat = UserChat.builder()
                     .createdAt(Instant.now())
