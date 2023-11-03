@@ -26,25 +26,18 @@ import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void checkOneToOne() {
+    void checkManyToMany() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            Profile profile = session.get(Profile.class, 1L);
-            System.out.println();
+            User user = session.get(User.class, 4L);
+            Chat chat = Chat.builder()
+                    .name("java-chat")
+                    .build();
 
-//            User user = User.builder()
-//                    .username("ivan@gmail.com")
-//                    .company(session.get(Company.class, 1))
-//                    .build();
-//            Profile profile = Profile.builder()
-//                    .lang("RU")
-//                    .street("Lenina 293")
-//                    .build();
-//
-//            profile.setUser(user);
-//            session.persist(user);
+            session.persist(chat);
+            user.addChat(chat);
 
             session.getTransaction().commit();
         }
