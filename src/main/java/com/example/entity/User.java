@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Slf4j
-public class User {
+public class User implements Comparable<User> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,4 +46,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
 
+    @Override
+    public int compareTo(User o) {
+        return this.username.compareTo(o.username);
+    }
 }

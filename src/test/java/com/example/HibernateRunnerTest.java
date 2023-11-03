@@ -1,6 +1,9 @@
 package com.example;
 
-import com.example.entity.*;
+import com.example.entity.Birthday;
+import com.example.entity.Company;
+import com.example.entity.PersonalInfo;
+import com.example.entity.User;
 import com.example.util.HibernateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
@@ -15,7 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -24,14 +26,13 @@ import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void localeInfo() {
+    void ordering() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
             Company company = session.get(Company.class, 1);
-            company.getLocales().add(LocaleInfo.of("RU", "Описание на русском"));
-            company.getLocales().add(LocaleInfo.of("EN", "English description"));
+            company.getUsers().forEach(System.out::println);
 
             session.getTransaction().commit();
         }

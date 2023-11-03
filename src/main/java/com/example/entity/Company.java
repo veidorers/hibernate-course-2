@@ -2,9 +2,9 @@ package com.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SortNatural;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 @ToString(of = "id")
@@ -22,7 +22,7 @@ public class Company {
 
     @Builder.Default
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<User> users = new ArrayList<>();
+    private SortedSet<User> users = new TreeSet<>();
 
     @Builder.Default
     @ElementCollection
