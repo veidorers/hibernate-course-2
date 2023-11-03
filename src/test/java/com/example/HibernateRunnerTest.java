@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
@@ -32,12 +33,17 @@ class HibernateRunnerTest {
             session.beginTransaction();
 
             User user = session.get(User.class, 4L);
-            Chat chat = Chat.builder()
-                    .name("java-chat")
+            Chat chat = session.get(Chat.class, 2L);
+
+            UserChat userChat = UserChat.builder()
+                    .createdAt(Instant.now())
+                    .createdBy(user.getUsername())
                     .build();
 
-            session.persist(chat);
-            user.addChat(chat);
+            userChat.setUser(user);
+            userChat.setChat(chat);
+
+            session.persist(userChat);
 
             session.getTransaction().commit();
         }
