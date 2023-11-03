@@ -24,23 +24,14 @@ import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void checkManyToMany() {
+    void localeInfo() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            User user = session.get(User.class, 1L);
-            Chat chat = session.get(Chat.class, 1L);
-
-            UserChat userChat = UserChat.builder()
-                    .createdAt(Instant.now())
-                    .createdBy(user.getUsername())
-                    .build();
-
-            userChat.setUser(user);
-            userChat.setChat(chat);
-
-            session.persist(userChat);
+            Company company = session.get(Company.class, 1);
+            company.getLocales().add(LocaleInfo.of("RU", "Описание на русском"));
+            company.getLocales().add(LocaleInfo.of("EN", "English description"));
 
             session.getTransaction().commit();
         }
