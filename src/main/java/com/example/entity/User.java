@@ -32,8 +32,6 @@ public class User implements Comparable<User> {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    @Type(JsonBinaryType.class)
-    private String info;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")

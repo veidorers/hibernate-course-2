@@ -26,14 +26,15 @@ import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void checkMap() {
+    void checkH2() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            Company company = session.get(Company.class, 1);
-//            company.getUsers().forEach((k, v) -> System.out.println(v));
-            company.getLocales().forEach((k, v) -> System.out.println(k + " | " + v));
+            Company company = Company.builder()
+                    .name("Google")
+                    .build();
+            session.persist(company);
 
             session.getTransaction().commit();
         }
