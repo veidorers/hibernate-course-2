@@ -26,13 +26,14 @@ import static java.util.stream.Collectors.joining;
 
 class HibernateRunnerTest {
     @Test
-    void ordering() {
+    void checkMap() {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
             Company company = session.get(Company.class, 1);
-            company.getUsers().forEach(System.out::println);
+//            company.getUsers().forEach((k, v) -> System.out.println(v));
+            company.getLocales().forEach((k, v) -> System.out.println(k + " | " + v));
 
             session.getTransaction().commit();
         }
@@ -45,7 +46,7 @@ class HibernateRunnerTest {
             session.beginTransaction();
 
             Company company = session.get(Company.class, 1);
-            company.getUsers().removeIf(user -> user.getId().equals(7L));
+//            company.getUsers().removeIf(user -> user.getId().equals(7L));
 
             session.getTransaction().commit();
         }

@@ -21,16 +21,20 @@ public class Company {
     private String name;
 
     @Builder.Default
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private SortedSet<User> users = new TreeSet<>();
+    @OneToMany(mappedBy = "company")
+    @MapKey(name = "username")
+    @SortNatural
+    private Map<String, User> users = new TreeMap<>();
 
     @Builder.Default
     @ElementCollection
     @CollectionTable(name = "company_locale", joinColumns = @JoinColumn(name = "company_id"))
-    private List<LocaleInfo> locales = new ArrayList<>();
+    @MapKeyColumn(name = "lang")
+    @Column(name = "description")
+    private Map<String, String> locales = new HashMap<>();
 
     public void addUser(User user) {
-        users.add(user);
+        users.put(user.getUsername(), user);
         user.setCompany(this);
     }
 }
