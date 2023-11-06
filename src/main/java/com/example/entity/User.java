@@ -16,13 +16,14 @@ import java.util.Set;
 @ToString(exclude = {"profile", "company", "userChats"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 @Entity
 @Table(name = "users")
 @Slf4j
-public class User implements Comparable<User>, BaseEntity<Long> {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User implements Comparable<User>, BaseEntity<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private PersonalInfo personalInfo;
@@ -37,10 +38,10 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Profile profile;
 
-    @Builder.Default
+//    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
 
