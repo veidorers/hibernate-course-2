@@ -27,7 +27,10 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-    testImplementation 'com.h2database:h2:2.2.224'
+//    testImplementation 'com.h2database:h2:2.2.224'
+    // https://mvnrepository.com/artifact/org.testcontainers/postgresql
+    testImplementation 'org.testcontainers:postgresql:1.19.1'
+
 }
 
 test {

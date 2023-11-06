@@ -14,11 +14,11 @@ import java.time.LocalDate;
 public class HibernateRunner {
     public static void main(String[] args) {
         Company company = Company.builder()
-                .name("Meta")
+                .name("Amazon")
                 .build();
 
         User user = User.builder()
-                .username("ivan3@gmail.com")
+                .username("ivan4@gmail.com")
                 .personalInfo(PersonalInfo.builder()
                         .firstname("Ivan")
                         .lastname("Ivanov")
@@ -31,6 +31,8 @@ public class HibernateRunner {
             try (Session session1 = sessionFactory.openSession()) {
                 session1.beginTransaction();
 
+                session1.persist(company);
+                session1.persist(user);
 
                 session1.getTransaction().commit();
             }

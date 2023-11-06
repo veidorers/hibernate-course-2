@@ -9,11 +9,16 @@ import org.hibernate.cfg.Configuration;
 @UtilityClass
 public class HibernateUtil {
     public static SessionFactory buildSessionFactory() {
-        Configuration configuration = new Configuration();
-        configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
-        configuration.addAttributeConverter(new BirthdayConverter());
+        Configuration configuration = buildConfiguration();
         configuration.configure();
 
         return configuration.buildSessionFactory();
+    }
+
+    public static Configuration buildConfiguration() {
+        Configuration configuration = new Configuration();
+        configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
+        configuration.addAttributeConverter(new BirthdayConverter());
+        return configuration;
     }
 }

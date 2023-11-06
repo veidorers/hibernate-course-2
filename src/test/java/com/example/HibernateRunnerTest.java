@@ -4,6 +4,7 @@ import com.example.entity.Birthday;
 import com.example.entity.Company;
 import com.example.entity.PersonalInfo;
 import com.example.entity.User;
+import com.example.util.HibernateTestUtil;
 import com.example.util.HibernateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
@@ -27,7 +28,7 @@ import static java.util.stream.Collectors.joining;
 class HibernateRunnerTest {
     @Test
     void checkH2() {
-        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        try (SessionFactory sessionFactory = HibernateTestUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 

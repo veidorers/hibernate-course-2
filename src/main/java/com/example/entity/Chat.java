@@ -20,6 +20,7 @@ public class Chat {
 
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "chat")
     private List<UserChat> userChats = new ArrayList<>();
 }
