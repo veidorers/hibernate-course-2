@@ -29,6 +29,7 @@ class HibernateRunnerTest {
 
             Manager manager = Manager.builder()
                     .username("petr@gmail.com")
+                    .projectName("Starter")
                     .company(google)
                     .build();
             session.persist(manager);
@@ -37,7 +38,7 @@ class HibernateRunnerTest {
             session.clear();
 
             Programmer programmer1 = session.get(Programmer.class, 1L);
-            User manager1 = session.get(User.class, 2L);
+            var manager1 = session.get(User.class, 2L);
 
             session.getTransaction().commit();
         }
