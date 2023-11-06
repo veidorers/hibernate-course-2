@@ -13,7 +13,7 @@ import java.util.List;
 @ToString(exclude = "userChats")
 @Builder
 @Entity
-public class Chat {
+public class Chat implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

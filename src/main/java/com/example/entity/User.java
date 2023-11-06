@@ -20,7 +20,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Slf4j
-public class User implements Comparable<User> {
+public class User implements Comparable<User>, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
