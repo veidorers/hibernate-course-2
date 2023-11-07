@@ -7,21 +7,21 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.util.StringUtils.SPACE;
+
 @NamedQuery(name = "findUserByName", query = "select u from User u " +
                                              "join u.company c " +
                                              "where u.personalInfo.firstname = :firstname and c.name = :companyName")
 @Data
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"profile", "company", "userChats"})
+@ToString(exclude = {"profile", "company", "userChats", "payments"})
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
+@Builder
 @Entity
 @Table(name = "users")
 @Slf4j
-@Inheritance()
-@DiscriminatorColumn(name = "type")
-public abstract class User implements Comparable<User>, BaseEntity<Long> {
+public class User implements Comparable<User>, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,12 +41,20 @@ public abstract class User implements Comparable<User>, BaseEntity<Long> {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Profile profile;
 
-//    @Builder.Default
+    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "receiver")
+    private List<Payment> payments = new ArrayList<>();
 
     @Override
     public int compareTo(User o) {
         return this.username.compareTo(o.username);
+    }
+
+    public String fullName() {
+        return getPersonalInfo().getFirstname() + SPACE + getPersonalInfo().getLastname();
     }
 }

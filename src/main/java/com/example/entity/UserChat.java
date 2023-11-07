@@ -1,10 +1,7 @@
 package com.example.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.Instant;
 
@@ -14,6 +11,7 @@ import java.time.Instant;
 @Builder
 @Entity
 @Table(name = "users_chat")
+@EqualsAndHashCode(callSuper = false)
 public class UserChat extends AuditableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

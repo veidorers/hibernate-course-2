@@ -15,8 +15,7 @@
         <mapping class="com.example.entity.Profile"/>
         <mapping class="com.example.entity.Chat"/>
         <mapping class="com.example.entity.UserChat"/>
-        <mapping class="com.example.entity.Programmer"/>
-        <mapping class="com.example.entity.Manager"/>
+        <mapping class="com.example.entity.Payment"/>
 
 
     </session-factory>
