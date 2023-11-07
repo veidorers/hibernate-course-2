@@ -1,44 +1,59 @@
 package com.example;
 
-import com.example.entity.Company;
-import com.example.entity.Manager;
-import com.example.entity.Programmer;
-import com.example.entity.User;
+import com.example.entity.*;
 import com.example.util.HibernateTestUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.List;
 
 class HibernateRunnerTest {
     @Test
-    void checkInheritance() {
+    void checkHQL() {
         try (SessionFactory sessionFactory = HibernateTestUtil.buildSessionFactory();
              Session session = sessionFactory.openSession()) {
             session.beginTransaction();
 
-            Company google = Company.builder()
+            var google = Company.builder()
                     .name("Google")
                     .build();
             session.persist(google);
 
-            Programmer programmer = Programmer.builder()
-                    .username("ivan@gmail.com")
+            var amazon = Company.builder()
+                    .name("Amazon")
+                    .build();
+            session.persist(amazon);
+
+            var programmer = Programmer.builder()
+                    .username("ivan_i@gmail.com")
+                    .personalInfo(new PersonalInfo("Ivan", "Ivanov", new Birthday(LocalDate.now())))
                     .company(google)
+                    .language(Language.JAVA)
                     .build();
             session.persist(programmer);
 
-            Manager manager = Manager.builder()
-                    .username("petr@gmail.com")
+            var manager = Manager.builder()
+                    .username("ivan_p@gmail.com")
+                    .personalInfo(new PersonalInfo("Ivan", "Petrov", new Birthday(LocalDate.now())))
                     .projectName("Starter")
-                    .company(google)
+                    .company(amazon)
                     .build();
             session.persist(manager);
 
-            session.flush();
-            session.clear();
+            String name = "Ivan";
+            var users = session.createQuery(
+                            "select u from User u " +
+                            "join u.company c " +
+                            "where u.personalInfo.firstname = :firstname and c.name = :companyName", User.class)
+                    .setParameter("firstname", name)
+                    .setParameter("companyName", "Google")
+                    .list();
 
-            Programmer programmer1 = session.get(Programmer.class, 1L);
-            var manager1 = session.get(User.class, 2L);
+            System.out.println(users);
+
 
             session.getTransaction().commit();
         }

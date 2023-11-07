@@ -16,7 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Slf4j
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance()
+@DiscriminatorColumn(name = "type")
 public abstract class User implements Comparable<User>, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
