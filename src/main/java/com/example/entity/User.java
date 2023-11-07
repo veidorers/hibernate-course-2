@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(name = "findUserByName", query = "select u from User u " +
+                                             "join u.company c " +
+                                             "where u.personalInfo.firstname = :firstname and c.name = :companyName")
 @Data
 @EqualsAndHashCode(of = "username")
 @ToString(exclude = {"profile", "company", "userChats"})
