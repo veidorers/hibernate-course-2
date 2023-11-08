@@ -17,6 +17,7 @@ import java.time.Month;
 public class TestDataImporter {
     public void importData(SessionFactory sessionFactory) {
         @Cleanup Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
         Company microsoft = saveCompany(session, "Microsoft");
         Company apple = saveCompany(session, "Apple");
@@ -52,11 +53,11 @@ public class TestDataImporter {
         savePayment(session, dianeGreene, 300);
         savePayment(session, dianeGreene, 300);
 
-
+        session.getTransaction().commit();
     }
 
     private Company saveCompany(Session session, String name) {
-        var company = Company.builder()
+        Company company = Company.builder()
                 .name(name)
                 .build();
         session.persist(company);
@@ -65,28 +66,28 @@ public class TestDataImporter {
     }
 
     private User saveUser(Session session,
-                         String firstname,
-                         String lastname,
-                         LocalDate birthDay,
-                         Company company) {
-        var user = User.builder()
-                .username(firstname + lastname)
+                          String firstName,
+                          String lastName,
+                          LocalDate birthday,
+                          Company company) {
+        User user = User.builder()
+                .username(firstName + lastName)
                 .personalInfo(PersonalInfo.builder()
-                        .firstname(firstname)
-                        .lastname(lastname)
-                        .birthDate(birthDay)
+                        .firstname(firstName)
+                        .lastname(lastName)
+                        .birthDate(birthday)
                         .build())
                 .company(company)
                 .build();
-
         session.persist(user);
+
         return user;
     }
 
     private void savePayment(Session session, User user, Integer amount) {
-        var payment = Payment.builder()
-                .amount(amount)
+        Payment payment = Payment.builder()
                 .receiver(user)
+                .amount(amount)
                 .build();
         session.persist(payment);
     }
