@@ -2,6 +2,7 @@ package com.example.dao;
 import com.example.entity.Payment;
 import com.example.entity.User;
 import com.example.entity.dao.UserDao;
+import com.example.entity.dto.PaymentFilter;
 import com.example.util.HibernateTestUtil;
 import com.example.util.TestDataImporter;
 import com.querydsl.core.Tuple;
@@ -110,7 +111,11 @@ class UserDaoTest {
         @Cleanup Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Double averagePaymentAmount = userDao.findAveragePaymentAmountByFirstAndLastNames(session, "Bill", "Gates");
+        PaymentFilter filter = PaymentFilter.builder()
+//                .firstName("Bill")
+                .lastName("Gates")
+                .build();
+        Double averagePaymentAmount = userDao.findAveragePaymentAmountByFirstAndLastNames(session, filter);
         assertThat(averagePaymentAmount).isEqualTo(300.0);
 
         session.getTransaction().commit();

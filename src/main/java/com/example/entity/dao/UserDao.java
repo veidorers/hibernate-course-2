@@ -1,16 +1,16 @@
 package com.example.entity.dao;
 
 import com.example.entity.Payment;
-import com.example.entity.QCompany;
-import com.example.entity.QPayment;
 import com.example.entity.User;
+import com.example.entity.dto.PaymentFilter;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.entity.QCompany.company;
@@ -97,13 +97,18 @@ public class UserDao {
     /**
      * Возвращает среднюю зарплату сотрудника с указанными именем и фамилией
      */
-    public Double findAveragePaymentAmountByFirstAndLastNames(Session session, String firstName, String lastName) {
+    public Double findAveragePaymentAmountByFirstAndLastNames(Session session, PaymentFilter filter) {
+
+        var predicate = QPredicate.builder()
+                .add(filter.getFirstName(), user.personalInfo.firstname::eq)
+                .add(filter.getLastName(), user.personalInfo.lastname::eq)
+                .buildAnd();
 
         return new JPAQuery<User>(session)
                 .select(payment.amount.avg())
                 .from(payment)
                 .join(payment.receiver, user)
-                .where(user.personalInfo.firstname.eq(firstName).and(user.personalInfo.lastname.eq(lastName)))
+                .where(predicate)
                 .fetchOne();
 
     }
