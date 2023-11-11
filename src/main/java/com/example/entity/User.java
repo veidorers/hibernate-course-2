@@ -5,7 +5,9 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.example.util.StringUtils.SPACE;
 
@@ -14,7 +16,7 @@ import static com.example.util.StringUtils.SPACE;
                                              "where u.personalInfo.firstname = :firstname and c.name = :companyName")
 @Data
 @EqualsAndHashCode(of = "username")
-@ToString(exclude = {"profile", "company", "userChats", "payments"})
+@ToString(exclude = {"company", "userChats", "payments"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -38,15 +40,15 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Profile profile;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Profile profile;
 
     @Builder.Default
-    @OneToMany(mappedBy = "user")
-    private List<UserChat> userChats = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<UserChat> userChats = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER)
     private List<Payment> payments = new ArrayList<>();
 
     @Override

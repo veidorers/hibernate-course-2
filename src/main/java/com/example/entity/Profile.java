@@ -19,12 +19,12 @@ public class Profile implements BaseEntity<Long> {
     private String lang;
     private String street;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
     public void setUser(User user) {
-        user.setProfile(this);
+//        user.setProfile(this);
         this.user = user;
     }
 }
