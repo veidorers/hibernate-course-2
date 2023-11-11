@@ -39,7 +39,6 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Fetch(FetchMode.SELECT)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
@@ -51,7 +50,6 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserChat> userChats = new HashSet<>();
 
-    @Fetch(FetchMode.SUBSELECT)
     @Builder.Default
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();

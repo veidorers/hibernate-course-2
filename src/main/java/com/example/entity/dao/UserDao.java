@@ -9,6 +9,10 @@ import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
+import org.hibernate.query.criteria.JpaCriteriaQuery;
+import org.hibernate.query.criteria.JpaJoin;
+import org.hibernate.query.criteria.JpaRoot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,15 +86,13 @@ public class UserDao {
      * упорядоченные по имени сотрудника, а затем по размеру выплаты
      */
     public List<Payment> findAllPaymentsByCompanyName(Session session, String companyName) {
-
-        return new JPAQuery<User>(session)
+        return new JPAQuery<Payment>(session)
                 .select(payment)
                 .from(payment)
-                .join(payment.receiver, user)
+                .join(payment.receiver, user).fetchJoin()
                 .join(user.company, company)
                 .where(company.name.eq(companyName))
                 .orderBy(user.personalInfo.firstname.asc(), payment.amount.asc())
-//                .orderBy(payment.amount.asc())
                 .fetch();
     }
 
