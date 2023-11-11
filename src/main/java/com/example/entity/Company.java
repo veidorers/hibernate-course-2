@@ -16,7 +16,6 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @Builder
 @Entity
-@BatchSize(size = 3)
 public class Company implements BaseEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

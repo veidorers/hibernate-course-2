@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,6 +39,7 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Fetch(FetchMode.SELECT)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
@@ -48,8 +51,8 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserChat> userChats = new HashSet<>();
 
+    @Fetch(FetchMode.SUBSELECT)
     @Builder.Default
-    @BatchSize(size = 3)
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();
 
