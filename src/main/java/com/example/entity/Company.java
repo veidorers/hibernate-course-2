@@ -2,6 +2,7 @@ package com.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SortNatural;
 
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @Builder
 @Entity
+@BatchSize(size = 3)
 public class Company implements BaseEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

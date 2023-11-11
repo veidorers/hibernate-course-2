@@ -3,6 +3,7 @@ package com.example.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ public class User implements Comparable<User>, BaseEntity<Long> {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -44,11 +45,12 @@ public class User implements Comparable<User>, BaseEntity<Long> {
 //    private Profile profile;
 
     @Builder.Default
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserChat> userChats = new HashSet<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "receiver", fetch = FetchType.EAGER)
+    @BatchSize(size = 3)
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();
 
     @Override
