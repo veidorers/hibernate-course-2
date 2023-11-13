@@ -15,6 +15,16 @@ import java.util.Set;
 
 import static com.example.util.StringUtils.SPACE;
 
+@NamedEntityGraph(
+        name = "withCompanyAndChat",
+        attributeNodes = {
+                @NamedAttributeNode("company"),
+                @NamedAttributeNode(value = "userChats", subgraph = "chats")
+        },
+        subgraphs = {
+                @NamedSubgraph(name = "chats", attributeNodes = @NamedAttributeNode(value = "chat"))
+        }
+)
 @FetchProfile(name = "withCompanyAndPayment", fetchOverrides = {
         @FetchProfile.FetchOverride(
                 entity = User.class, association = "company", mode = FetchMode.JOIN
