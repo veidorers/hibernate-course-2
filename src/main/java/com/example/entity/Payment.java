@@ -14,12 +14,13 @@ import org.hibernate.annotations.OptimisticLocking;
 @NoArgsConstructor
 @Builder
 @Entity
-@OptimisticLocking(type = OptimisticLockType.DIRTY)
-@DynamicUpdate
 public class Payment implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Version
+    private Long version;
 
     @Column(nullable = false)
     private Integer amount;
