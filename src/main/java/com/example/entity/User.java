@@ -67,7 +67,7 @@ public class User implements Comparable<User>, BaseEntity<Long> {
 
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<UserChat> userChats = new HashSet<>();
+    private List<UserChat> userChats = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
