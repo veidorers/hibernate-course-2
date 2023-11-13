@@ -9,25 +9,30 @@ import org.hibernate.LockOptions;
 import org.hibernate.Session;
 import org.hibernate.jpa.SpecHints;
 
+import java.util.List;
 import java.util.Map;
 
 public class HibernateRunner {
     @Transactional
     public static void main(String[] args) {
         try (var sessionFactory = HibernateUtil.buildSessionFactory();
-             var session = sessionFactory.openSession();
-             var session1 = sessionFactory.openSession()) {
-
+             var session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session1.beginTransaction();
+//            session.setDefaultReadOnly(true);
 
-            var payment = session.find(Payment.class, 1L, LockModeType.PESSIMISTIC_READ);
+            session.createNativeMutationQuery("SET TRANSACTION READ ONLY;").executeUpdate();
+
+            var payments = session.createQuery("select p from Payment p", Payment.class)
+//                    .setReadOnly(true)
+                    .list();
+            var firstPayment = payments.get(0);
+            firstPayment.setAmount(firstPayment.getAmount() + 10);
+
+            var payment = session.find(Payment.class, 1L);
             payment.setAmount(payment.getAmount() + 10);
 
-            var theSamePayment = session1.get(Payment.class, 1L);
-            theSamePayment.setAmount(theSamePayment.getAmount() + 20);
+            session.flush();
 
-            session1.getTransaction().commit();
             session.getTransaction().commit();
         }
     }
