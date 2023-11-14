@@ -18,7 +18,7 @@ public class HibernateUtil {
         Configuration configuration = buildConfiguration();
         configuration.configure();
         var sessionFactory = configuration.buildSessionFactory();
-        registerListeners(sessionFactory);
+//        registerListeners(sessionFactory);
 
         return sessionFactory;
     }

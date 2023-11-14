@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import java.time.Instant;
 
@@ -16,6 +19,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 @Entity
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Payment extends AuditableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

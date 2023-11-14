@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.SortNatural;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +18,7 @@ import java.util.TreeMap;
 @NoArgsConstructor
 @Builder
 @Entity
+@Audited
 public class Company implements BaseEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +26,14 @@ public class Company implements BaseEntity<Integer> {
 
     private String name;
 
+    @NotAudited
     @Builder.Default
     @OneToMany(mappedBy = "company")
     @MapKey(name = "username")
     @SortNatural
     private Map<String, User> users = new TreeMap<>();
 
+    @NotAudited
     @Builder.Default
     @ElementCollection
     @CollectionTable(name = "company_locale", joinColumns = @JoinColumn(name = "company_id"))
