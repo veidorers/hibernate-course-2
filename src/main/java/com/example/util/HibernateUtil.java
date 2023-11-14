@@ -2,6 +2,7 @@ package com.example.util;
 
 import com.example.entity.Audit;
 import com.example.entity.converter.BirthdayConverter;
+import com.example.interceptor.GlobalInterceptor;
 import com.example.listener.AuditTableListener;
 import lombok.experimental.UtilityClass;
 import org.hibernate.SessionFactory;
@@ -35,6 +36,7 @@ public class HibernateUtil {
         configuration.setPhysicalNamingStrategy(new CamelCaseToUnderscoresNamingStrategy());
         configuration.addAttributeConverter(new BirthdayConverter());
         configuration.addAnnotatedClass(Audit.class);
+        configuration.setInterceptor(new GlobalInterceptor());
         return configuration;
     }
 }

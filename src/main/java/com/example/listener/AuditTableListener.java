@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class AuditTableListener implements PreDeleteEventListener, PreInsertEventListener {
     @Override
     public boolean onPreDelete(PreDeleteEvent event) {
-        auditEntity(event, Audit.Operation.REMOVE);
+        auditEntity(event, Audit.Operation.DELETE);
         return false;
     }
 
