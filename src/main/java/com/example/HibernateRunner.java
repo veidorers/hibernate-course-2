@@ -12,7 +12,7 @@ public class HibernateRunner {
     public static void main(String[] args) {
         try (var sessionFactory = HibernateUtil.buildSessionFactory();
              var session = sessionFactory.openSession()) {
-//            TestDataImporter.importData(sessionFactory);
+            TestDataImporter.importData(sessionFactory);
 
             session.beginTransaction();
 

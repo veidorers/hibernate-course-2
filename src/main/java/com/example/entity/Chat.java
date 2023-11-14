@@ -21,6 +21,9 @@ public class Chat implements BaseEntity<Long> {
     private String name;
 
     @Builder.Default
+    private Integer count = 0;
+
+    @Builder.Default
     @OneToMany(mappedBy = "chat")
     private List<UserChat> userChats = new ArrayList<>();
 }

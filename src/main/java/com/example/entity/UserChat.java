@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.example.listener.UserChatListener;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "users_chat")
 @EqualsAndHashCode(callSuper = false)
+@EntityListeners(UserChatListener.class)
 public class UserChat extends AuditableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
