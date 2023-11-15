@@ -3,6 +3,8 @@ package com.example.entity;
 import com.example.listener.UserChatListener;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 
 import java.time.Instant;
 
@@ -14,6 +16,7 @@ import java.time.Instant;
 @Table(name = "users_chat")
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(UserChatListener.class)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class UserChat extends AuditableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
