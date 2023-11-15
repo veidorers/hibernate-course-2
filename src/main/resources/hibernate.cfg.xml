@@ -12,7 +12,8 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">validate</property>
-<!--        <property name="hibernate.connection.isolation">8</property>-->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.region">org.hibernate.cache.jcache.internal.JCacheRegionFactory</property>
 
         <mapping class="com.example.entity.User"/>
         <mapping class="com.example.entity.Company"/>
