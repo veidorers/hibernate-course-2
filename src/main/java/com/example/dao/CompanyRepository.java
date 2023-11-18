@@ -1,4 +1,4 @@
-package com.example.entity.dao;
+package com.example.dao;
 
 import com.example.entity.Company;
 import jakarta.persistence.EntityManager;

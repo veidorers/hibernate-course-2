@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.entity.dao.PaymentRepository;
+import com.example.dao.PaymentRepository;
 import com.example.util.HibernateUtil;
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;

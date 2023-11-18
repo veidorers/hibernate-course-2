@@ -1,4 +1,4 @@
-package com.example.entity.dao;
+package com.example.dao;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;

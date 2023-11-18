@@ -1,21 +1,13 @@
-package com.example.entity.dao;
+package com.example.dao;
 
 import com.example.entity.Payment;
 import com.example.entity.User;
 import com.example.entity.dto.PaymentFilter;
-import com.fasterxml.jackson.databind.introspect.TypeResolutionContext;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.impl.JPAQuery;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.Session;
-import org.hibernate.query.criteria.HibernateCriteriaBuilder;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
-import org.hibernate.query.criteria.JpaJoin;
-import org.hibernate.query.criteria.JpaRoot;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

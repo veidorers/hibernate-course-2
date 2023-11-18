@@ -1,7 +1,6 @@
 package com.example.dao;
 import com.example.entity.Payment;
 import com.example.entity.User;
-import com.example.entity.dao.UserDao;
 import com.example.entity.dto.PaymentFilter;
 import com.example.util.HibernateTestUtil;
 import com.example.util.TestDataImporter;
