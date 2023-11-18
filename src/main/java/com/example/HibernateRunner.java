@@ -1,8 +1,11 @@
 package com.example;
 
+import com.example.entity.Payment;
 import com.example.entity.User;
 import com.example.util.HibernateUtil;
 import jakarta.transaction.Transactional;
+
+import java.util.List;
 
 public class HibernateRunner {
     @Transactional
@@ -11,24 +14,26 @@ public class HibernateRunner {
             try (var session = sessionFactory.openSession()) {
                 session.beginTransaction();
 
-                var user = session.get(User.class, 1L);
-                var user1 = session.get(User.class, 2L);
-                var user2 = session.get(User.class, 3L);
-                var user3 = session.get(User.class, 4L);
-//                user1.getCompany().getName();
-//                user1.getUserChats().size();
+                var payments = session.createQuery("select p from Payment p where p.receiver.id = :userId", Payment.class)
+                        .setParameter("userId", 1L)
+                        .setCacheable(true)
+                        .getResultList();
+
+                System.out.println(payments.size());
+
+                System.out.println(sessionFactory.getStatistics().getCacheRegionStatistics("Users"));
 
                 session.getTransaction().commit();
             }
             try(var session2 = sessionFactory.openSession()) {
                 session2.beginTransaction();
 
-                var user = session2.get(User.class, 1L);
-                var user1 = session2.get(User.class, 2L);
-                var user2 = session2.get(User.class, 3L);
-                var user3 = session2.get(User.class, 4L);
-//                user1.getCompany().getName();
-//                user1.getUserChats().size();
+                var payments = session2.createQuery("select p from Payment p where p.receiver.id = :userId", Payment.class)
+                        .setParameter("userId", 1L)
+                        .setCacheable(true)
+                        .getResultList();
+
+                System.out.println(payments.size());
 
                 session2.getTransaction().commit();
             }

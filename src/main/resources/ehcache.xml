@@ -9,7 +9,7 @@
 
     <ehcache:cache-template name="simple">
         <ehcache:expiry>
-            <ehcache:ttl>1000</ehcache:ttl>
+            <ehcache:ttl>100</ehcache:ttl>
         </ehcache:expiry>
         <ehcache:resources>
             <ehcache:heap unit="entries">3</ehcache:heap>
