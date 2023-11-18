@@ -2,7 +2,7 @@ package com.example.dao;
 
 import com.example.entity.Payment;
 import com.example.entity.User;
-import com.example.entity.dto.PaymentFilter;
+import com.example.dto.PaymentFilter;
 import com.querydsl.core.Tuple;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
