@@ -46,7 +46,7 @@ import static com.example.util.StringUtils.SPACE;
 @Table(name = "users")
 @Slf4j
 @Audited
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Users")
 public class User implements Comparable<User>, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

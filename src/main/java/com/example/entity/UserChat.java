@@ -16,7 +16,7 @@ import java.time.Instant;
 @Table(name = "users_chat")
 @EqualsAndHashCode(callSuper = false)
 @EntityListeners(UserChatListener.class)
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "userChatsCache")
 public class UserChat extends AuditableEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
