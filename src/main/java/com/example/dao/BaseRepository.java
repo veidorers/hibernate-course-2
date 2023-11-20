@@ -2,16 +2,19 @@ package com.example.dao;
 
 import com.example.entity.BaseEntity;
 import jakarta.persistence.EntityManager;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public abstract class BaseRepository<K extends Serializable, E extends BaseEntity<K>> implements Repository<K, E> {
 
     private final Class<E> clazz;
+    @Getter
     private final EntityManager entityManager;
 
     @Override
@@ -32,8 +35,8 @@ public abstract class BaseRepository<K extends Serializable, E extends BaseEntit
     }
 
     @Override
-    public Optional<E> findById(K id) {
-        return Optional.ofNullable(entityManager.find(clazz, id));
+    public Optional<E> findById(K id, Map<String, Object> properties) {
+        return Optional.ofNullable(entityManager.find(clazz, id, properties));
     }
 
     @Override
