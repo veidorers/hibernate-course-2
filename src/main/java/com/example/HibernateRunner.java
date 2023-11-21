@@ -54,13 +54,14 @@ public class HibernateRunner {
 
             userService.findById(1L).ifPresent(System.out::println);
 
-            var userDto = new UserCreateDto("petr@gmail.com",
+            var userDto = new UserCreateDto("petr5@gmail.com",
                     PersonalInfo.builder()
                             .firstname("Petr")
                             .lastname("Petrov")
                             .birthDate(LocalDate.now())
                             .build(),
-                    Role.USER,
+//                    Role.USER,
+                    null,
                     1);
 
             var id = userService.create(userDto);

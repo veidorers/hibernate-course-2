@@ -38,6 +38,11 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     implementation 'net.bytebuddy:byte-buddy:1.14.9'
 
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+    implementation 'jakarta.el:jakarta.el-api:5.0.1'
+    implementation 'org.glassfish:jakarta.el:5.0.0-M1'
+
+
 
     implementation 'org.hibernate:hibernate-jcache:6.2.7.Final'
     implementation 'org.ehcache:ehcache:3.10.8:jakarta'

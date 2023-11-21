@@ -7,13 +7,16 @@ import com.example.entity.User;
 import com.example.mapper.Mapper;
 import com.example.mapper.UserCreateMapper;
 import com.example.mapper.UserReadMapper;
+import com.example.validation.UpdateCheck;
 import jakarta.persistence.EntityGraph;
 import jakarta.transaction.Transactional;
+import jakarta.validation.*;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.graph.GraphSemantic;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 public class UserService {
@@ -23,7 +26,14 @@ public class UserService {
 
     @Transactional
     public Long create(UserCreateDto userDto) {
-        //validation
+        var validatorFactory = Validation.buildDefaultValidatorFactory();
+        var validator = validatorFactory.getValidator();
+        var validationResult = validator.validate(userDto, UpdateCheck.class);
+
+        if(!validationResult.isEmpty()) {
+            throw new ConstraintViolationException(validationResult);
+        }
+
         var userEntity = userCreateMapper.mapFrom(userDto);
         return userRepository.save(userEntity).getId();
     }
